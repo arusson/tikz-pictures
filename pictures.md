@@ -3,21 +3,21 @@
 
 ## AES
 
-### Add Encryption
+### AES Encryption
 
 <div align="center">
 
 ![AES Encryption](./img/aes_encryption.svg)
 </div>
 
-### Add Rounds
+### AES Rounds
 
 <div align="center">
 
-![AES Add Rounds](./img/aes_rounds.svg)
+![AES Rounds](./img/aes_rounds.svg)
 </div>
 
-### Add Round Key
+### AES Add Round Key
 
 <div align="center">
 
@@ -25,14 +25,14 @@
 </div>
 
 
-### Add Mix Columns
+### AES Mix Columns
 
 <div align="center">
 
 ![AES Mix Columns](./img/aes_mixcolumns.svg)
 </div>
 
-### Add Shift Rows
+### AES Shift Rows
 
 <div align="center">
 
