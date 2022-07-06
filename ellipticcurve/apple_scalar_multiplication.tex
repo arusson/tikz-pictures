@@ -1,0 +1,58 @@
+%
+% I made this graph to explain how Apple's implementation
+% of the Montgomery ladder scalar multiplication deals
+% when the first most significant bits of the scalar are zeros.
+% The whole explanation is in section 3.2.2 of my thesis (in French),
+% available here: https://tel.archives-ouvertes.fr/tel-03663532/
+% (the algorithm and graph are on page 31).
+%
+% Also, Apple finally released in 2022 the source code of this version
+% of Montgomery ladder with explanation in commits (in English),
+% which is available to download here: https://developer.apple.com/security/
+% (link to corecrypto source at the bottom).
+%
+
+\documentclass[tikz]{standalone}
+\usepackage[utf8]{inputenc}
+
+\definecolor{DarkRed}{rgb}{0.7,0.2,0.2}
+
+\begin{document}
+
+\tikzstyle{noeudcoz}=[rectangle,fill=DarkRed!10,minimum width=3cm, rounded corners=8pt,draw]
+
+\begin{tikzpicture}[xscale=1.4,yscale=2.1]\sffamily
+\node[draw,rectangle,rounded corners=2pt] (start) at (0,4) {start};
+\node[noeudcoz] (0) at (-2.5,3) {($2$, $1$), ($1$, $0$, $0$)};
+\node[noeudcoz] (1) at (2.5,3) {($2$, $1$), ($0$, $1$, $1$)};
+\node[noeudcoz] (00) at (-1.5,2) {($-2$, $1$), ($0$, $0$, $0$)};
+\node[noeudcoz] (000) at (-1.5,1) {($2$, $1$), ($0$, $0$, $0$)};
+\node[noeudcoz] (001) at (1.5,1) {($2$, $-1$), ($1$, $1$, $1$)};
+\node[noeudcoz] (01) at (-4,2) {($-2$, $1$), ($1$, $1$, $1$)};
+\node[noeudcoz] (010) at (-4,0) {($-2$, $-3$), ($0$, $1$, $0$)};
+\node[noeudcoz] (011) at (-1.5,0) {($-4$, $-3$), ($0$, $1$, $1$)};
+\node[noeudcoz] (10) at (1.5,0) {($2$, $3$), ($0$, $1$, $0$)};
+\node[noeudcoz] (11) at (4,0) {($4$, $3$), ($0$, $1$, $1$)};
+
+\draw[-latex]
+(start) edge node[above] {0} (0)
+        edge node[above] {1} (1)
+(0) edge node[right] {0} (00)
+    edge node[left] {1} (01)
+(00) edge[bend left] node[right] {0} (000)
+     edge node[above] {1} (001)
+(000) edge[bend left] node[left] {0} (00)
+      edge node[above] {1} (01)
+(001) edge node[left] {0} (10)
+      edge node[above] {1} (11)
+(01) edge node[left] {0} (010)
+     edge[bend right=20] node[right] {1} (011)
+(1) edge[bend left=48] node[left] {0} (10)
+    edge[bend left] node[right] {1} (11);
+\draw[dotted] (010) --++ (0,-.5);
+\draw[dotted] (011) --++ (0,-.5);
+\draw[dotted] (10) --++ (0,-.5);
+\draw[dotted] (11) --++ (0,-.5);
+\end{tikzpicture}
+
+\end{document}
